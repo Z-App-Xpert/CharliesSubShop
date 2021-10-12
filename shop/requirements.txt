@@ -1,0 +1,7 @@
+Flask
+Flask-Session
+SQLAlchemy
+requests
+Flask-SocketIO
+gevent
+gevent-websocket

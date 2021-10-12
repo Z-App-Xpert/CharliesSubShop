@@ -1,0 +1,26 @@
+body {
+	background: #007bff!important;
+}
+
+#timer {
+    font-size: 48px;
+    text-align: center;
+}
+
+.center {
+	margin: 0 auto;
+}
+
+.left-img {
+    float: left;
+    width: 250px;
+    height: 200px;
+    padding: 20px;    
+}
+
+.right-img {
+    float: right;
+    width: 250px;
+    height: 200px;
+    padding: 20px;
+}

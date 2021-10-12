@@ -1,0 +1,90 @@
+{% extends "layout.html" %}
+
+{% block meta_specific %}
+    <title>Home</title>
+{% endblock %}
+{% block content %}
+<img class="left-img" src="{{ url_for('static', filename='img/Charlie2.JPG') }}">
+<img class="right-img" src="{{ url_for('static', filename='img/VendorCart.png') }}">
+<div class="container py-5">
+    <h2 class="text-center pb-4 mb-4 font-weight-normal text-white">Charlie's Coffee and Sandwich Shop</h2>
+    <div class="row">
+        <div class="col-lg-6 col-12 pb-3 center">
+            <div class="card h-100">
+                <div class="card-body">
+                    {% if not session['logged_in'] %}
+                        <form class="py-2" role="form">
+                            <div class="form-group">
+                                <div class="mx-auto col-sm-10 pb-3 pt-2 text-center">
+                                    <a href="/login" class="btn btn-outline-secondary btn-lg">Login</a>
+                                    <a href="/register" class="btn btn-outline-secondary btn-lg">Register</a>
+                                </div>
+                            </div>
+                        </form>
+                    {% else %}
+                        {% if session['type'] == 'shop' %}
+                            {% for vendor in vendor_list %}
+                                <h4 class="pt-4 text-center">{{ vendor.vendor.name }}</h4>
+                                <table data-vendor="{{ vendor.vendor.email }}" class="table vendor_table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="sandwich_row">
+                                            <td><strong>Sandwiches Sold</strong></td>
+                                            <td> {{ vendor.inventory.sandwich }}</td>
+                                        </tr>
+                                        <tr class="coffee_row">
+                                            <td><strong>Coffee Sold</strong></td>
+                                            <td> {{ vendor.inventory.coffee }} lbs</td>
+                                        </tr>
+                                        <tr class="current_row">
+                                            <td><strong>Current Delivery</strong></td>
+                                            <td> {{ vendor.inventory.current }} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            {% endfor %}
+                        {% elif session['type'] == 'vendor' %}
+                            <div id="order-div">
+                                <h4 class="text-center">Order</h4>
+                                <form class="py-2 orderForm" role="form" method="POST">
+                                    <input type="hidden" name="vendor" value="{{ session['email'] }}">
+                                    <div class="form-group">
+                                        <label for="SandwichInput" class="sr-only form-control-label">Sandwich</label>
+                                        <div class="mx-auto col-sm-10">
+                                            <input name="sandwich" type="text" class="form-control" id="SandwichInput" placeholder="Enter amount of Sandwiches" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="CoffeeInput" class="sr-only form-control-label">Coffee</label>
+                                        <div class="mx-auto col-sm-10">
+                                            <input name="coffee" type="text" class="form-control" id="CoffeeInput" placeholder="Enter amount of Coffee" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                         <div class="mx-auto col-sm-10 pb-3 pt-2">
+                                            <button type="submit" class="btn btn-primary btn-lg btn-block">Order</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="timer" class="timer d-none"></div>
+                            <div id="mark" class="d-none">
+                                <div class="form-group">
+                                     <div class="mx-auto col-sm-10 pb-3 pt-2">
+                                        <button id="mark-button" data-vendor="{{ session['email'] }}" class="btn btn-primary btn-lg btn-block">Mark as Delivered</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

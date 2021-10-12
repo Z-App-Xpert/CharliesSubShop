@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block meta_specific %}
+    <title>Route</title>
+{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center text-white pt-4 pb-4">MBTA Subway Map</h2>
+    <img src="{{ url_for('static', filename='img/MBTAMap.JPG') }}">
+</div>
+{% endblock %}

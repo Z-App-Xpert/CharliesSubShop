@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block meta_specific %}
+    <title>Login</title>
+{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center pb-2"></h2>
+    <div class="row">
+        <div class="col-lg-6 col-12 pb-3 center">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Login</h2>
+                    <form class="py-2" role="form" method="POST">
+                        <div class="form-group">
+                            <label for="inputEmailForm" class="sr-only form-control-label">Email</label>
+                            <div class="mx-auto col-sm-10">
+                                <input name="email" type="email" class="form-control" id="inputEmailForm" placeholder="email" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPasswordForm" class="sr-only form-control-label">Password</label>
+                            <div class="mx-auto col-sm-10">
+                                <input name="password" type="password" class="form-control" id="inputPasswordForm" placeholder="password" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="mx-auto col-sm-10 pb-3 pt-2">
+                                <button type="submit" class="btn btn-outline-secondary btn-lg btn-block">Login</button>
+                            </div>
+                        </div>
+                        {% if session['error'] != '' %}  
+                        <div class="form-group">
+                            <div class="mx-auto col-sm-10 pt-2">                         
+                                <div class="alert alert-danger text-center" role="alert">
+                                  <strong>{{session['error']}}</strong>
+                                </div>   
+                            </div>                                             
+                        </div>    
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+{% endblock %}
